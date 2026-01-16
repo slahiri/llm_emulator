@@ -1,74 +1,109 @@
-# React + TypeScript + Vite
+# LLM Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive, animated visualization of LLM transformer architecture designed for complete beginners to understand how Large Language Models work.
 
-Currently, two official plugins are available:
+## What is this?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app lets you:
 
-## React Compiler
+1. **Train a tiny LLM** - Watch step-by-step how a language model learns from text
+2. **Run inference** - Use your trained model to generate text and see exactly what happens inside
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+No ML background required. Every step is explained in plain English with real numbers.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Interactive Training** - Build vocabulary, initialize embeddings, watch the training loop
+- **Step-by-step Controls** - Play, pause, or step through one operation at a time
+- **Visual Pipeline** - See data flow through tokenization → embeddings → attention → output
+- **Math Details** - Click any component to see the actual calculations
+- **Tiny Model** - Small enough to visualize everything (8 dimensions, 3 layers, ~25 word vocabulary)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 18+
+- pnpm
+
+### Installation
+
+```bash
+# Clone the repository
+git clone git@github.com:slahiri/llm_emulator.git
+cd llm_emulator
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open http://localhost:5173 in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## How to Use
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Training Mode (`/training`)
+
+Walk through 4 stages to train your model:
+
+| Stage | What You Learn |
+|-------|----------------|
+| 1. Vocabulary | How words become numbers (tokenization) |
+| 2. Embeddings | How numbers become meaning vectors |
+| 3. Attention | How the model knows which words matter |
+| 4. Training Loop | How the model learns from mistakes |
+
+### 2. Execution Mode (`/execution`)
+
+After training, test your model:
+
+- Enter a prompt (e.g., "The cat")
+- Watch the model predict the next word
+- Step through the inference pipeline
+- See attention patterns and probabilities
+
+## Tech Stack
+
+- **Framework:** React + TypeScript + Vite
+- **State Management:** Zustand
+- **UI Components:** shadcn/ui
+- **Visualization:** React Flow (@xyflow/react)
+- **Animation:** Framer Motion
+- **Charts:** Recharts
+- **Storage:** LocalStorage (browser)
+
+## Project Structure
+
 ```
-# llm_emulator
+/src
+  /components
+    /training        # Training stage components
+    /execution       # Inference components
+    /shared          # Reusable components
+    /ui              # shadcn/ui components
+  /stores            # Zustand state management
+  /db                # Storage abstraction
+  /lib               # Core LLM logic
+  /routes            # Page components
+```
+
+## The Tiny Model
+
+| Parameter | Value |
+|-----------|-------|
+| Vocabulary | ~25 words |
+| Embedding Dimensions | 8 |
+| Transformer Layers | 3 |
+| Attention Heads | 2 per layer |
+
+Small enough to show all values, large enough to demonstrate real concepts.
+
+## Contributing
+
+Contributions welcome! Please open an issue first to discuss what you'd like to change.
+
+## License
+
+MIT
